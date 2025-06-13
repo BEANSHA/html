@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Anime Academic Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Anime Aesthetic Color Palette & Fonts */
+        :root {
+            --primary-color: #673AB7; /* Deeper Purple - common in anime aesthetics */
+            --secondary-color: #FF7043; /* Vibrant Orange - for accents and highlights */
+            --tertiary-color: #8BC34A; /* Lively Green - for success states/accents */
+            --background-color: #E8EAF6; /* Light Lavender/Blue-ish background */
+            --card-background: #FFFFFF; /* Clean white for cards */
+            --text-color: #311B92; /* Darker purple for main text */
+            --light-text-color: #7E57C2; /* Lighter purple for secondary text */
+            --border-color: #C5CAE9; /* Softer border color */
+            --success-color: var(--tertiary-color); /* Use tertiary for success */
+            --danger-color: #E53935; /* Brighter red for danger */
+            --warning-color: #FFC107; /* Yellow for warnings (e.g., overdue) */
+
+            /* Anime-inspired font stack - Poppins is a good start, but we can add more "cute" or "clean" options */
+            --main-font: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            --header-font: 'Poppins', cursive, sans-serif; /* A bit more playful for headers if a cursive font is available */
+        }
+
+        body {
+            font-family: var(--main-font);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Subtle background pattern - gives it a layered, illustrated feel */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9IiNDRTVFOTkiIGZpbGwtb3BhY2l0eT0iMC4xNSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICAgICAgPHBhdGggZD0iTTMyIDI1bDEgMXYxSGYxdi0xTTI0IDE3di0xbDItMiAyLTEtMXYtMWgtNnYySDE2di0zaC0xdi0yaC0xdjFoLTF2LTFIMTF2MWgtMXYxSDEwdi0zSDE0di0ySDl2LTFIMTV2LTF2LTFIMTN2LTFIMTN2MmgtMlYxMmgtMXYtMUgxNXYtMWgtMXYtMUgxNXYtMmgtdjFoLTJ2MmgtMXYxaC0xdjFoLTF2MWgtMXYxaC0xdi0xaC0xdi0xaC0xdi0xSDIuNiA2LjVsMi43LTIuNiAzLjMtMy4zLTMuMyAzLjMtMi43LTIuOHYtMWgtMVY1aC0xVjZoLTFWNWgtMS4zLjc1Ljc1LjQ3Mi43MDIuOTQ1Ljk4MiAxLjI1MSAxLjI1MS4xNDYuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS42NDkuNjQ5LjY0OS41NC45NS45NS41NC40NzIuNzAyLjk0NS41OTYuOTg3LjU5Ni44MjYuODUzLjM2NC40MzJmOTUyLjgzOC42NDEuNzIzLjY5MS45NzguOTg2Ljg4Ni45NS44MjYuNTIyLjg5NC40ODQuNDQ2LjY0MS4zNDMuNzIzLjgzLjc4NC4zODIgLjYxLjM2LjM4LjYxLjM4LjYzLjYzLjU4LjYzLjU4LjU4LjYzLjU4LjYzLjYxLjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzLjU4LjYzLjU4LjY3LjU4LjYzMiAyNy44IDI2LjNMMzMgMzIuMWwyLjYgMi43IDIuNy0yLjdsLTUuMi01LjgtMi43LTIuOC0yLjYgMi43eiIvPgogICAgPC9nPgogPC9zdmc+');
+             background-repeat: repeat;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: var(--header-font);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align sections to the top */
+        }
+
+        section {
+            display: none; /* Hidden by default, JavaScript will show them */
+            padding: 2rem; /* Adjusted padding for internal content */
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--card-background);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem; /* Spacing between sections if they were stacked */
+        }
+
+        section.active {
+            display: block;
+        }
+
+        /* Home Section Styling */
+        #home-section {
+            text-align: center;
+        }
+
+        #home-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #home-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--light-text-color);
+        }
+
+        .home-quote {
+            margin: 2.5rem auto;
+            max-width: 700px;
+            padding: 1.5rem;
+            background-color: #f0f4c3; /* Light pastel yellow/green */
+            border-left: 5px solid var(--tertiary-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .home-quote blockquote {
+            margin: 0;
+            font-style: italic;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .home-quote cite {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1rem;
+            text-align: right;
+        }
+
+
+        .home-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--background-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+
+        .stat-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        /* General Form & List Styling */
+        .form-container, .list-container {
+            margin-top: 2rem;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group select,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: var(--main-font);
+            font-size: 1rem;
+            color: var(--text-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.2); /* Using a hardcoded RGB for now, replace if variable can directly convert */
+            outline: none;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .list-item {
+            background-color: var(--background-color);
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .list-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-item span {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .list-item .actions button {
+            margin-left: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.85rem;
+            margin-top: 0;
+        }
+
+        .list-item .actions button.delete {
+            background-color: var(--danger-color);
+        }
+
+        .list-item .actions button.delete:hover {
+            background-color: #C62828;
+        }
+
+        .list-item.completed span {
+            text-decoration: line-through;
+            color: var(--light-text-color);
+        }
+
+        /* Subjects Section */
+        #subjects-list .list-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #subjects-list .list-item h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        #subjects-list .list-item p {
+            margin: 0 0 0.5rem 0;
+            color: var(--light-text-color);
+            font-size: 0.95rem;
+        }
+
+        #subjects-list .list-item .actions {
+            align-self: flex-end;
+            margin-top: 0.5rem;
+        }
+
+        /* Todo Section */
+        .task-item {
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+            background-color: var(--background-color); /* Default background for task items */
+        }
+
+        .task-item.completed {
+            background-color: #E0F2F7; /* Light blue for completed */
+            border-left: 5px solid var(--tertiary-color);
+            opacity: 0.8;
+        }
+
+        .task-item.overdue {
+            background-color: #FFEBEE; /* Light red for overdue */
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .task-item-content {
+            flex-grow: 1;
+            margin-right: 1rem;
+        }
+
+        .task-item-content h3 {
+            margin: 0 0 0.2rem 0;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+
+        .task-item-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+
+        .task-item-actions button {
+            margin-left: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.85rem;
+            margin-top: 0;
+        }
+
+        .task-item-actions button.complete {
+            background-color: var(--tertiary-color);
+        }
+
+        .task-item-actions button.complete:hover {
+            background-color: #689F38;
+        }
+
+        /* Timer Section */
+        #timer-section {
+            text-align: center;
+        }
+
+        #timer-display {
+            font-family: 'monospace', var(--header-font); /* Monospace for digital clock feel */
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 2rem 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #timer-controls button {
+            margin: 0 0.5rem;
+            min-width: 120px;
+            font-size: 1.1rem;
+        }
+
+        #pomodoro-settings {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        #pomodoro-settings .form-group {
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        #pomodoro-settings label {
+            margin-bottom: 0;
+        }
+
+        #pomodoro-settings input[type="number"] {
+            width: 80px;
+            text-align: center;
+        }
+
+        /* Calendar Section */
+        #calendar-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-nav button {
+            background-color: var(--secondary-color);
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 0;
+        }
+
+        .calendar-nav button:hover {
+            background-color: #E64A19;
+            transform: translateY(-1px);
+        }
+
+        #current-month-year {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            background-color: var(--border-color); /* Light border around the grid */
+            padding: 5px;
+            border-radius: 10px;
+            overflow: hidden; /* Ensures rounded corners are respected */
+        }
+
+        .calendar-grid .day-name {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 5px 5px 0 0; /* Rounded top corners for day names */
+        }
+
+        .calendar-grid .day {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 100px; /* Ensure a decent height for each day */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .calendar-grid .day:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            z-index: 1; /* Bring hovered day to front */
+        }
+
+        .calendar-grid .day .date-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .calendar-grid .day.current-month .date-number {
+             color: var(--primary-color); /* Dates in current month */
+        }
+
+        .calendar-grid .day.other-month .date-number {
+            color: var(--light-text-color); /* Dates from other months */
+            opacity: 0.6;
+        }
+
+        .calendar-grid .day.today {
+            background-color: #E3F2FD; /* Light blue for today */
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 0 0 4px rgba(255, 112, 67, 0.3); /* Orange glow for today */
+        }
+
+        .calendar-grid .day.has-events {
+            border-bottom: 3px solid var(--tertiary-color); /* Indicate events */
+        }
+
+        .calendar-event {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 5px;
+            border-radius: 3px;
+            margin-top: 3px;
+            width: calc(100% - 10px);
+            text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .calendar-event:hover {
+            background-color: #E64A19;
+        }
+
+        .calendar-event.task { background-color: var(--tertiary-color); }
+        .calendar-event.exam { background-color: var(--danger-color); }
+        .calendar-event.lecture { background-color: var(--primary-color); }
+
+        .calendar-event.task:hover { background-color: #689F38; }
+        .calendar-event.exam:hover { background-color: #C62828; }
+        .calendar-event.lecture:hover { background-color: #512DA8; }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            nav a {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .home-stats {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .stat-card {
+                min-width: unset;
+                width: 100%;
+            }
+
+            #timer-display {
+                font-size: 3.5rem;
+            }
+
+            #timer-controls button {
+                min-width: 100px;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr); /* Still 7 columns, but days will be narrower */
+                font-size: 0.85rem;
+            }
+
+            .calendar-grid .day {
+                min-height: 80px; /* Smaller height for smaller screens */
+                padding: 5px;
+            }
+
+            .calendar-grid .day .date-number {
+                font-size: 1rem;
+            }
+
+            .calendar-event {
+                font-size: 0.65rem;
+                padding: 2px 3px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 80%;
+                text-align: center;
+            }
+
+            #pomodoro-settings {
+                flex-direction: column;
+                align-items: center;
+            }
+            .calendar-grid {
+                font-size: 0.75rem;
+                gap: 3px;
+            }
+            .calendar-grid .day {
+                min-height: 60px;
+                padding: 3px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Anime Academic Planner</h1>
+        <nav>
+            <ul>
+                <li><a href="#" data-section="home" class="active">Home</a></li>
+                <li><a href="#" data-section="subjects">Subjects</a></li>
+                <li><a href="#" data-section="todo">To-Do List</a></li>
+                <li><a href="#" data-section="timer">Pomodoro Timer</a></li>
+                <li><a href="#" data-section="calendar">Calendar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home-section" class="active">
+            <h2>Welcome to Your Planner!</h2>
+            <p>Stay organized and on top of your studies with an anime-inspired flair!</p>
+
+            <div class="home-quote">
+                <blockquote>
+                    "The future belongs to those who believe in the beauty of their dreams."
+                </blockquote>
+                <cite>— Shoyo Hinata, Haikyuu!! (though this quote is often misattributed to Eleanor Roosevelt, it fits the spirit!)</cite>
+            </div>
+
+            <div class="home-stats">
+                <div class="stat-card">
+                    <h3>Total Subjects</h3>
+                    <p id="total-subjects">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Tasks</h3>
+                    <p id="pending-tasks">0</m>
+                </div>
+                <div class="stat-card">
+                    <h3>Today's Events</h3>
+                    <p id="today-events">0</p>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <h3>Quick Add To-Do</h3>
+                <div class="form-group">
+                    <label for="quick-task-name">Task Name</label>
+                    <input type="text" id="quick-task-name" placeholder="e.g., Read Chapter 5 of Calculus">
+                </div>
+                <div class="form-group">
+                    <label for="quick-task-due-date">Due Date</label>
+                    <input type="date" id="quick-task-due-date">
+                </div>
+                <button id="add-quick-task">Add Task</button>
+            </div>
+        </section>
+
+        <section id="subjects-section">
+            <h2>My Subjects</h2>
+            <div class="form-container">
+                <h3>Add New Subject</h3>
+                <div class="form-group">
+                    <label for="subject-name">Subject Name</label>
+                    <input type="text" id="subject-name" placeholder="e.g., Data Structures & Algorithms">
+                </div>
+                <div class="form-group">
+                    <label for="subject-professor">Professor</label>
+                    <input type="text" id="subject-professor" placeholder="e.g., Prof. Anime Sensei">
+                </div>
+                <div class="form-group">
+                    <label for="subject-credits">Credits</label>
+                    <input type="number" id="subject-credits" min="1" value="3">
+                </div>
+                <button id="add-subject">Add Subject</button>
+            </div>
+
+            <div class="list-container">
+                <h3>Subject List</h3>
+                <div id="subjects-list">
+                    </div>
+            </div>
+        </section>
+
+        <section id="todo-section">
+            <h2>To-Do List</h2>
+            <div class="form-container">
+                <h3>Add New Task</h3>
+                <div class="form-group">
+                    <label for="task-name">Task Description</label>
+                    <input type="text" id="task-name" placeholder="e.g., Finish essay on Mecha Anime">
+                </div>
+                <div class="form-group">
+                    <label for="task-due-date">Due Date</label>
+                    <input type="date" id="task-due-date">
+                </div>
+                <div class="form-group">
+                    <label for="task-due-time">Due Time (Optional)</label>
+                    <input type="time" id="task-due-time">
+                </div>
+                <div class="form-group">
+                    <label for="task-priority">Priority</label>
+                    <select id="task-priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <button id="add-task">Add Task</button>
+            </div>
+
+            <div class="list-container">
+                <h3>Your Tasks</h3>
+                <div id="tasks-list">
+                    </div>
+            </div>
+        </section>
+
+        <section id="timer-section">
+            <h2>Pomodoro Timer</h2>
+            <div id="timer-display">25:00</div>
+            <div id="timer-controls">
+                <button id="start-timer">Start</button>
+                <button id="pause-timer">Pause</button>
+                <button id="reset-timer">Reset</button>
+            </div>
+
+            <div id="pomodoro-settings">
+                <div class="form-group">
+                    <label for="work-duration">Work (min):</label>
+                    <input type="number" id="work-duration" value="25" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="short-break-duration">Short Break (min):</label>
+                    <input type="number" id="short-break-duration" value="5" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="long-break-duration">Long Break (min):</label>
+                    <input type="number" id="long-break-duration" value="15" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="pomodoro-sets">Sets:</label>
+                    <input type="number" id="pomodoro-sets" value="4" min="1">
+                </div>
+            </div>
+        </section>
+
+        <section id="calendar-section">
+            <h2>Academic Calendar</h2>
+            <div class="form-container">
+                <h3>Add New Event</h3>
+                <div class="form-group">
+                    <label for="event-name">Event Name</label>
+                    <input type="text" id="event-name" placeholder="e.g., Midterm Exam - Math">
+                </div>
+                <div class="form-group">
+                    <label for="event-date">Date</label>
+                    <input type="date" id="event-date">
+                </div>
+                <div class="form-group">
+                    <label for="event-time">Time (Optional)</label>
+                    <input type="time" id="event-time">
+                </div>
+                <div class="form-group">
+                    <label for="event-type">Type</label>
+                    <select id="event-type">
+                        <option value="task">Task Deadline</option>
+                        <option value="exam">Exam</option>
+                        <option value="lecture">Lecture/Class</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-description">Description (Optional)</label>
+                    <textarea id="event-description" rows="3" placeholder="Additional details..."></textarea>
+                </div>
+                <button id="add-event">Add Event</button>
+            </div>
+
+            <div class="list-container">
+                <div class="calendar-nav">
+                    <button id="prev-month">&lt; Prev</button>
+                    <h3 id="current-month-year"></h3>
+                    <button id="next-month">Next &gt;</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="day-name">Sun</div>
+                    <div class="day-name">Mon</div>
+                    <div class="day-name">Tue</div>
+                    <div class="day-name">Wed</div>
+                    <div class="day-name">Thu</div>
+                    <div class="day-name">Fri</div>
+                    <div class="day-name">Sat</div>
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // --- Navigation Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('main section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetSectionId = e.target.dataset.section + '-section';
+
+                    // Remove 'active' from all links and sections
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    sections.forEach(sec => sec.classList.remove('active'));
+
+                    // Add 'active' to the clicked link and corresponding section
+                    e.target.classList.add('active');
+                    document.getElementById(targetSectionId).classList.add('active');
+
+                    // Special rendering for calendar if it's the target
+                    if (targetSectionId === 'calendar-section') {
+                        renderCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth());
+                    }
+                    // Update home stats when navigating
+                    updateHomeStats();
+                });
+            });
+
+            // Set default active section (Home) on load
+            document.querySelector('nav a[data-section="home"]').classList.add('active');
+            document.getElementById('home-section').classList.add('active');
+            updateHomeStats(); // Initial update of home stats
+        });
+
+
+        // --- Data Storage (using localStorage) ---
+        const saveToLocalStorage = (key, data) => {
+            localStorage.setItem(key, JSON.stringify(data));
+        };
+
+        const loadFromLocalStorage = (key) => {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : [];
+        };
+
+        // --- Home Section Logic ---
+        const updateHomeStats = () => {
+            const subjects = loadFromLocalStorage('subjects');
+            const tasks = loadFromLocalStorage('tasks');
+            const events = loadFromLocalStorage('events');
+
+            document.getElementById('total-subjects').textContent = subjects.length;
+            document.getElementById('pending-tasks').textContent = tasks.filter(task => !task.completed).length;
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize today's date
+            const todayEventsCount = events.filter(event => {
+                const eventDate = new Date(event.date);
+                eventDate.setHours(0, 0, 0, 0);
+                return eventDate.getTime() === today.getTime();
+            }).length;
+            document.getElementById('today-events').textContent = todayEventsCount;
+        };
+
+        document.getElementById('add-quick-task').addEventListener('click', () => {
+            const taskName = document.getElementById('quick-task-name').value;
+            const taskDueDate = document.getElementById('quick-task-due-date').value;
+
+            if (taskName && taskDueDate) {
+                const tasks = loadFromLocalStorage('tasks');
+                tasks.push({
+                    id: Date.now(),
+                    name: taskName,
+                    dueDate: taskDueDate,
+                    dueTime: '', // Quick add doesn't have time
+                    priority: 'medium', // Default priority for quick add
+                    completed: false
+                });
+                saveToLocalStorage('tasks', tasks);
+                document.getElementById('quick-task-name').value = '';
+                document.getElementById('quick-task-due-date').value = '';
+                renderTasks();
+                updateHomeStats();
+                alert('Task added!');
+            } else {
+                alert('Please enter task name and due date.');
+            }
+        });
+
+
+        // --- Subjects Section Logic ---
+        let subjects = loadFromLocalStorage('subjects');
+
+        const renderSubjects = () => {
+            const subjectsList = document.getElementById('subjects-list');
+            subjectsList.innerHTML = '';
+            if (subjects.length === 0) {
+                subjectsList.innerHTML = '<p>No subjects added yet.</p>';
+                return;
+            }
+            subjects.forEach(subject => {
+                const subjectItem = document.createElement('div');
+                subjectItem.classList.add('list-item');
+                subjectItem.innerHTML = `
+                    <div>
+                        <h3>${subject.name}</h3>
+                        <p>Professor: ${subject.professor}</p>
+                        <p>Credits: ${subject.credits}</p>
+                    </div>
+                    <div class="actions">
+                        <button class="delete" data-id="${subject.id}">Delete</button>
+                    </div>
+                `;
+                subjectsList.appendChild(subjectItem);
+            });
+            updateHomeStats();
+        };
+
+        document.getElementById('add-subject').addEventListener('click', () => {
+            const name = document.getElementById('subject-name').value;
+            const professor = document.getElementById('subject-professor').value;
+            const credits = document.getElementById('subject-credits').value;
+
+            if (name && professor && credits) {
+                subjects.push({ id: Date.now(), name, professor, credits: parseInt(credits) });
+                saveToLocalStorage('subjects', subjects);
+                renderSubjects();
+                document.getElementById('subject-name').value = '';
+                document.getElementById('subject-professor').value = '';
+                document.getElementById('subject-credits').value = '3';
+            } else {
+                alert('Please fill in all subject fields.');
+            }
+        });
+
+        document.getElementById('subjects-list').addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete')) {
+                const idToDelete = parseInt(e.target.dataset.id);
+                subjects = subjects.filter(subject => subject.id !== idToDelete);
+                saveToLocalStorage('subjects', subjects);
+                renderSubjects();
+            }
+        });
+
+        // --- To-Do List Section Logic ---
+        let tasks = loadFromLocalStorage('tasks');
+
+        const renderTasks = () => {
+            const tasksList = document.getElementById('tasks-list');
+            tasksList.innerHTML = '';
+            if (tasks.length === 0) {
+                tasksList.innerHTML = '<p>No tasks added yet. Time to relax!</p>';
+                return;
+            }
+
+            // Sort tasks: Incomplete, then by due date (earliest first), then by priority (High > Medium > Low)
+            const sortedTasks = [...tasks].sort((a, b) => {
+                // Incomplete tasks first
+                if (a.completed !== b.completed) {
+                    return a.completed ? 1 : -1;
+                }
+
+                // Overdue tasks first among incomplete
+                const now = new Date();
+                const aDueDate = new Date(a.dueDate + (a.dueTime ? `T${a.dueTime}` : 'T23:59'));
+                const bDueDate = new Date(b.dueDate + (b.dueTime ? `T${b.dueTime}` : 'T23:59'));
+
+                const aOverdue = !a.completed && aDueDate < now;
+                const bOverdue = !b.completed && bDueDate < now;
+
+                if (aOverdue !== bOverdue) {
+                    return aOverdue ? -1 : 1;
+                }
+
+                // Then sort by due date
+                if (a.dueDate !== b.dueDate) {
+                    return aDueDate.getTime() - bDueDate.getTime();
+                }
+
+                // Then by priority (High > Medium > Low)
+                const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
+                return priorityOrder[b.priority] - priorityOrder[a.priority];
+            });
+
+
+            sortedTasks.forEach(task => {
+                const taskItem = document.createElement('div');
+                taskItem.classList.add('task-item');
+                if (task.completed) {
+                    taskItem.classList.add('completed');
+                } else {
+                    const now = new Date();
+                    const taskDateTime = new Date(task.dueDate + (task.dueTime ? `T${task.dueTime}` : 'T23:59')); // Assume end of day if no time
+                    if (taskDateTime < now) {
+                        taskItem.classList.add('overdue');
+                    }
+                }
+
+                taskItem.innerHTML = `
+                    <div class="task-item-content">
+                        <h3>${task.name}</h3>
+                        <p>Due: ${task.dueDate}${task.dueTime ? ` at ${task.dueTime}` : ''} | Priority: ${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}</p>
+                    </div>
+                    <div class="task-item-actions">
+                        <button class="complete" data-id="${task.id}">${task.completed ? 'Unmark' : 'Complete'}</button>
+                        <button class="delete" data-id="${task.id}">Delete</button>
+                    </div>
+                `;
+                tasksList.appendChild(taskItem);
+            });
+            updateHomeStats();
+        };
+
+        document.getElementById('add-task').addEventListener('click', () => {
+            const name = document.getElementById('task-name').value;
+            const dueDate = document.getElementById('task-due-date').value;
+            const dueTime = document.getElementById('task-due-time').value;
+            const priority = document.getElementById('task-priority').value;
+
+            if (name && dueDate) {
+                tasks.push({ id: Date.now(), name, dueDate, dueTime, priority, completed: false });
+                saveToLocalStorage('tasks', tasks);
+                renderTasks();
+                document.getElementById('task-name').value = '';
+                document.getElementById('task-due-date').value = '';
+                document.getElementById('task-due-time').value = '';
+                document.getElementById('task-priority').value = 'medium';
+            } else {
+                alert('Please enter task description and due date.');
+            }
+        });
+
+        document.getElementById('tasks-list').addEventListener('click', (e) => {
+            const id = parseInt(e.target.dataset.id);
+            if (e.target.classList.contains('delete')) {
+                tasks = tasks.filter(task => task.id !== id);
+                saveToLocalStorage('tasks', tasks);
+                renderTasks();
+            } else if (e.target.classList.contains('complete')) {
+                const taskIndex = tasks.findIndex(task => task.id === id);
+                if (taskIndex !== -1) {
+                    tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                    saveToLocalStorage('tasks', tasks);
+                    renderTasks();
+                }
+            }
+        });
+
+        // --- Pomodoro Timer Logic ---
+        let timer;
+        let timerRunning = false;
+        let timeLeft;
+        let currentMode = 'work'; // 'work', 'short-break', 'long-break'
+        let pomodoroCount = 0;
+        let totalPomodoroSets = 4;
+
+        const workDurationInput = document.getElementById('work-duration');
+        const shortBreakDurationInput = document.getElementById('short-break-duration');
+        const longBreakDurationInput = document.getElementById('long-break-duration');
+        const pomodoroSetsInput = document.getElementById('pomodoro-sets');
+        const timerDisplay = document.getElementById('timer-display');
+        const startBtn = document.getElementById('start-timer');
+        const pauseBtn = document.getElementById('pause-timer');
+        const resetBtn = document.getElementById('reset-timer');
+
+        const setTimerDisplay = (minutes, seconds) => {
+            timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        };
+
+        const loadPomodoroSettings = () => {
+            const savedSettings = loadFromLocalStorage('pomodoroSettings');
+            if (savedSettings) {
+                workDurationInput.value = savedSettings.work || 25;
+                shortBreakDurationInput.value = savedSettings.shortBreak || 5;
+                longBreakDurationInput.value = savedSettings.longBreak || 15;
+                pomodoroSetsInput.value = savedSettings.sets || 4;
+            }
+            totalPomodoroSets = parseInt(pomodoroSetsInput.value);
+            timeLeft = parseInt(workDurationInput.value) * 60;
+            setTimerDisplay(workDurationInput.value, 0);
+        };
+
+        const savePomodoroSettings = () => {
+            const settings = {
+                work: parseInt(workDurationInput.value),
+                shortBreak: parseInt(shortBreakDurationInput.value),
+                longBreak: parseInt(longBreakDurationInput.value),
+                sets: parseInt(pomodoroSetsInput.value)
+            };
+            saveToLocalStorage('pomodoroSettings', settings);
+            totalPomodoroSets = settings.sets;
+        };
+
+        const updateTimer = () => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            setTimerDisplay(minutes, seconds);
+
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                timerRunning = false;
+                // Play a sound (optional)
+                new Audio('https://www.soundjay.com/buttons/beep-07.wav').play(); // Example sound
+                handleTimerEnd();
+            } else {
+                timeLeft--;
+            }
+        };
+
+        const startTimer = () => {
+            if (!timerRunning) {
+                timerRunning = true;
+                timer = setInterval(updateTimer, 1000);
+            }
+        };
+
+        const pauseTimer = () => {
+            clearInterval(timer);
+            timerRunning = false;
+        };
+
+        const resetTimer = () => {
+            clearInterval(timer);
+            timerRunning = false;
+            currentMode = 'work';
+            pomodoroCount = 0;
+            timeLeft = parseInt(workDurationInput.value) * 60;
+            setTimerDisplay(workDurationInput.value, 0);
+            document.title = "My Anime Academic Planner"; // Reset title
+        };
+
+        const handleTimerEnd = () => {
+            if (currentMode === 'work') {
+                pomodoroCount++;
+                if (pomodoroCount >= totalPomodoroSets) {
+                    currentMode = 'long-break';
+                    timeLeft = parseInt(longBreakDurationInput.value) * 60;
+                    pomodoroCount = 0; // Reset for next set of pomodoros
+                    alert("Time for a long break!");
+                } else {
+                    currentMode = 'short-break';
+                    timeLeft = parseInt(shortBreakDurationInput.value) * 60;
+                    alert("Time for a short break!");
+                }
+            } else { // It was a break
+                currentMode = 'work';
+                timeLeft = parseInt(workDurationInput.value) * 60;
+                alert("Time to work!");
+            }
+            document.title = `${currentMode.replace('-', ' ').toUpperCase()} Time!`;
+            startTimer(); // Auto-start next phase
+        };
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Update settings change immediately and reset timer
+        workDurationInput.addEventListener('change', () => { savePomodoroSettings(); resetTimer(); });
+        shortBreakDurationInput.addEventListener('change', () => { savePomodoroSettings(); resetTimer(); });
+        longBreakDurationInput.addEventListener('change', () => { savePomodoroSettings(); resetTimer(); });
+        pomodoroSetsInput.addEventListener('change', () => { savePomodoroSettings(); resetTimer(); });
+
+        // --- Calendar Section Logic ---
+        let events = loadFromLocalStorage('events');
+        let currentCalendarDate = new Date(); // Stores the currently displayed month/year
+
+        const renderCalendar = (year, month) => {
+            const calendarGrid = document.querySelector('.calendar-grid');
+            const currentMonthYearDisplay = document.getElementById('current-month-year');
+
+            calendarGrid.innerHTML = `
+                <div class="day-name">Sun</div>
+                <div class="day-name">Mon</div>
+                <div class="day-name">Tue</div>
+                <div class="day-name">Wed</div>
+                <div class="day-name">Thu</div>
+                <div class="day-name">Fri</div>
+                <div class="day-name">Sat</div>
+            `; // Clear previous days and re-add day names
+
+            const firstDayOfMonth = new Date(year, month, 1);
+            const daysInMonth = new Date(year, month + 1, 0).getDate(); // last day of month
+            const firstDayOfWeek = firstDayOfMonth.getDay(); // 0 for Sunday, 1 for Monday, etc.
+
+            currentMonthYearDisplay.textContent = `${firstDayOfMonth.toLocaleString('default', { month: 'long' })} ${year}`;
+
+            // Add empty divs for preceding days of the week
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('day', 'other-month'); // Add other-month class
+                calendarGrid.appendChild(emptyDay);
+            }
+
+            // Add days of the current month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day', 'current-month');
+                dayDiv.dataset.date = date.toISOString().split('T')[0]; //YYYY-MM-DD
+
+                const dateNumber = document.createElement('div');
+                dateNumber.classList.add('date-number');
+                dateNumber.textContent = day;
+                dayDiv.appendChild(dateNumber);
+
+                // Highlight today's date
+                const today = new Date();
+                if (date.getDate() === today.getDate() &&
+                    date.getMonth() === today.getMonth() &&
+                    date.getFullYear() === today.getFullYear()) {
+                    dayDiv.classList.add('today');
+                }
+
+                // Add events for this day
+                const eventsForDay = events.filter(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate.getDate() === day &&
+                           eventDate.getMonth() === month &&
+                           eventDate.getFullYear() === year;
+                }).sort((a, b) => { // Sort events by time if available
+                    if (a.time && b.time) {
+                        return a.time.localeCompare(b.time);
+                    }
+                    return 0;
+                });
+
+                if (eventsForDay.length > 0) {
+                    dayDiv.classList.add('has-events');
+                    eventsForDay.forEach(event => {
+                        const eventEl = document.createElement('div');
+                        eventEl.classList.add('calendar-event', event.type);
+                        eventEl.title = `${event.name}${event.time ? ` (${event.time})` : ''}${event.description ? ` - ${event.description}` : ''}`;
+                        eventEl.textContent = `${event.time ? `${event.time} - ` : ''}${event.name}`;
+                        dayDiv.appendChild(eventEl);
+                    });
+                }
+                calendarGrid.appendChild(dayDiv);
+            }
+
+            // Add empty divs for succeeding days (to complete the last week row)
+            const totalCells = firstDayOfWeek + daysInMonth;
+            const remainingCells = (7 - (totalCells % 7)) % 7; // Calculate remaining cells to fill the last row
+            for (let i = 0; i < remainingCells; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('day', 'other-month');
+                calendarGrid.appendChild(emptyDay);
+            }
+        };
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth());
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth());
+        });
+
+        document.getElementById('add-event').addEventListener('click', () => {
+            const name = document.getElementById('event-name').value;
+            const date = document.getElementById('event-date').value;
+            const time = document.getElementById('event-time').value;
+            const type = document.getElementById('event-type').value;
+            const description = document.getElementById('event-description').value;
+
+            if (name && date) {
+                events.push({ id: Date.now(), name, date, time, type, description });
+                saveToLocalStorage('events', events);
+                renderCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth());
+                document.getElementById('event-name').value = '';
+                document.getElementById('event-date').value = '';
+                document.getElementById('event-time').value = '';
+                document.getElementById('event-type').value = 'task';
+                document.getElementById('event-description').value = '';
+                updateHomeStats();
+            } else {
+                alert('Please enter event name and date.');
+            }
+        });
+
+
+        // Initial renders when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSubjects();
+            renderTasks();
+            loadPomodoroSettings(); // Load settings and initialize timer display
+            // renderCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth()); // This line is now removed or commented as Home is default
+            updateHomeStats(); // Update stats based on loaded data
+        });
+    </script>
+</body>
+</html>
